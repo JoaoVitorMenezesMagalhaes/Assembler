@@ -15,9 +15,9 @@ tmp(13) := STA & "000000011"; -- STA @3
 tmp(14) := STA & "000000100"; -- STA @4
 tmp(15) := STA & "000000101"; -- STA @5
 tmp(16) := LDI & "000001001"; -- LDI $9
-tmp(17) := STA & "000001001"; -- STA @9 
+tmp(17) := STA & "000001001"; --  Carrega a posição MEM[9] com o valor 9
 tmp(18) := LDI & "000000001"; -- LDI $1
-tmp(19) := STA & "000000110"; -- STA @6 
+tmp(19) := STA & "000000110"; --  Carrega a posição MEM[6] com o valor 1
 
 tmp(21) := LDA & "101100001"; -- LDA @353
 tmp(22) := CEQ & "000000110"; -- CEQ @6

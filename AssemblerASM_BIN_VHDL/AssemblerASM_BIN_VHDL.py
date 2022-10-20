@@ -5,6 +5,7 @@ labels = {}
 
 
 def  converteArroba(line):
+    line = defineInstrucao(line)
     line = line.split('@')
     line = bin(int(line[1]))[2:].upper().zfill(9)
     line = ''.join(line)
@@ -12,6 +13,7 @@ def  converteArroba(line):
  
 
 def  converteCifrao(line):
+    line = defineInstrucao(line)
     line = line.split('$')
     line = bin(int(line[1]))[2:].upper().zfill(9)
     line = ''.join(line)
@@ -33,8 +35,15 @@ def defineComentario(line):
     else:
         return line.replace("\n","")
 
-#Remove o comentário a partir do caractere cerquilha '#',
-#deixando apenas a instrução
+
+def identificaComentario(line):
+  if '#' in line:
+    line = line.split('#')[1]
+    return line.replace("\n","")
+  else:
+    return line.replace("\n","")
+
+
 def defineInstrucao(line):
     line = line.split('#')
     line = line[0]
@@ -89,11 +98,11 @@ with open(destinoBIN, "w") as f:  #Abre o destino BIN
         
       if not ':' in line:
         if '@' in line:
-          l = 'tmp(' + str(cont) + ') := ' + trataMnemonico(line) + ' & \"' + converteArroba(line) + '\"; -- ' + line.replace("\n", "") + '\n'
+          l = 'tmp(' + str(cont) + ') := ' + trataMnemonico(line) + ' & \"' + converteArroba(line) + '\"; -- ' + identificaComentario(line) + '\n'
           cont+=1
 
         elif '$' in line:
-          l = 'tmp(' + str(cont) + ') := ' + trataMnemonico(line) + ' & \"' + converteCifrao(line) + '\"; -- ' + line.replace("\n", "") + '\n'
+          l = 'tmp(' + str(cont) + ') := ' + trataMnemonico(line) + ' & \"' + converteCifrao(line) + '\"; -- ' + identificaComentario(line) + '\n'
           cont+=1
 
         elif line.replace("\n", "") == "NOP":

@@ -15,9 +15,9 @@ STA @3
 STA @4
 STA @5
 LDI $9
-STA @9 
+STA @9 # Carrega a posição MEM[9] com o valor 9
 LDI $1
-STA @6 
+STA @6 # Carrega a posição MEM[6] com o valor 1
 
 LOOP:
 LDA @353
