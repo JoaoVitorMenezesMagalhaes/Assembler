@@ -67,7 +67,6 @@ with open(assembly, "r") as f: #Abre o arquivo ASM
       if ':' in line:
         labels[nomeLabel(line)] = cont-contlabel
         contlabel+=1
-        print(labels)
       cont+=1
 
     for line in lines:
