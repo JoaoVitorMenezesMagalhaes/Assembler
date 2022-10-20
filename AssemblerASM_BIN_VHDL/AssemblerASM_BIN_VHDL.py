@@ -27,15 +27,6 @@ def  converteLabel(line):
     return line.replace("\n", "")
         
 
-def defineComentario(line):
-    if '#' in line:
-        line = line.split('#')
-        line = line[0] + "-- " + line[1]
-        return line.replace("\n","")
-    else:
-        return line.replace("\n","")
-
-
 def identificaComentario(line):
   if '#' in line:
     line = line.split('#')[1]
@@ -124,11 +115,3 @@ with open(destinoBIN, "w") as f:  #Abre o destino BIN
           cont+=1
 
         f.write(l)
-
-      else:
-        label = line.split(':')[0]
-        type = labels[nomeLabel(line)]
-
-        if type == "JSR":
-          l = '-- ' + label + '\n'
-          f.write(l)
