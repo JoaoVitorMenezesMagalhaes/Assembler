@@ -1,29 +1,36 @@
-LDI $0 
-STA @288
-STA @289
-STA @290
-STA @291
-STA @292
-STA @293
-STA @256
-STA @257
-STA @258
-STA @0
-STA @1
-STA @2
-STA @3
-STA @4
-STA @5
-LDI $9
+STA @510 # Limpa key1
+STA @511 # Limpa key0
+LDI $0 # Carrega 0 no imediato
+STA @288 # Carrega 0 no hex0
+STA @289 # Carrega 0 no hex1
+STA @290 # Carrega 0 no hex2
+STA @291 # Carrega 0 no hex3
+STA @292 # Carrega 0 no hex4
+STA @293 # Carrega 0 no hex5
+STA @256 # Carrega 0 no LEDR0-7
+STA @257 # Carrega 0 no LEDR8
+STA @258 # Carrega 0 no LEDR9
+STA @0 # Carrega 0 no endereço 0 da RAM
+STA @1 # Carrega 1 no endereço 0 da RAM
+STA @2 # Carrega 2 no endereço 0 da RAM
+STA @3 # Carrega 3 no endereço 0 da RAM
+STA @4 # Carrega 4 no endereço 0 da RAM
+STA @5 # Carrega 5 no endereço 0 da RAM
+LDI $9 # Carrega 9 no imediato
 STA @9 # Carrega a posição MEM[9] com o valor 9
-LDI $1
+LDI $1 # Carrega 1 no imediato
 STA @6 # Carrega a posição MEM[6] com o valor 1
 
-LOOP:
-LDA @353
+CHECKKEYS:
+LDA @353 
 CEQ @6
-JEQ %LOOP
+JEQ %CHECKK0
 JSR %LIMITE
+CHECKK0:
+LDA @352
+CEQ @6
+JEQ %CHECKKEYS
+JSR %CONTADOR
 
 LIMITE:
 LDA @6
@@ -94,4 +101,12 @@ CGT @9
 JGT %CMIL
 STA @5
 STA @293
+RET
+
+CONTADOR:
+CNT:
+LDA @352
+CEQ @0
+JEQ %CNT
+
 RET
