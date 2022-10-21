@@ -1,0 +1,174 @@
+STA @510 # Limpa key1
+STA @511 # Limpa key0
+LDI $0 # Carrega 0 no imediato
+STA @288 # Carrega 0 no hex0
+STA @289 # Carrega 0 no hex1
+STA @290 # Carrega 0 no hex2
+STA @291 # Carrega 0 no hex3
+STA @292 # Carrega 0 no hex4
+STA @293 # Carrega 0 no hex5
+STA @256 # Carrega 0 no LEDR0-7
+STA @257 # Carrega 0 no LEDR8
+STA @258 # Carrega 0 no LEDR9
+STA @0 # Carrega 0 no endereço 0 da RAM
+STA @1 # Carrega 1 no endereço 0 da RAM
+STA @2 # Carrega 2 no endereço 0 da RAM
+STA @3 # Carrega 3 no endereço 0 da RAM
+STA @4 # Carrega 4 no endereço 0 da RAM
+STA @5 # Carrega 5 no endereço 0 da RAM
+LDI $9 # Carrega 9 no imediato
+STA @9 # Carrega a posição MEM[9] com o valor 9
+LDI $1 # Carrega 1 no imediato
+STA @6 # Carrega a posição MEM[6] com o valor 1
+
+CHECKKEYS:
+LDA @353 
+CEQ @6
+JEQ %CHECKK0
+JSR %LIMITE
+CHECKK0:
+LDA @352
+CEQ @6
+JEQ %CHECKKEYS
+JSR %CONTADOR
+
+LIMITE:
+LDA @6
+STA @258
+
+UNI:
+LDA @353
+CEQ @0
+JEQ %UNI
+STA @510
+LDA @320
+CGT @9
+JGT %UNI
+STA @0
+STA @288
+
+DEZ:
+LDA @353
+CEQ @0
+JEQ %DEZ
+STA @510
+LDA @320
+CGT @9
+JGT %DEZ
+STA @1
+STA @289
+
+CEN:
+LDA @353
+CEQ @0
+JEQ %CEN
+STA @510
+LDA @320
+CGT @9
+JGT %CEN
+STA @2
+STA @290
+
+UMIL:
+LDA @353
+CEQ @0
+JEQ %UMIL
+STA @510
+LDA @320
+CGT @9
+JGT %UMIL
+STA @3
+STA @291
+
+DMIL:
+LDA @353
+CEQ @0
+JEQ %DMIL
+STA @510
+LDA @320
+CGT @9
+JGT %DMIL
+STA @4
+STA @292
+
+CMIL:
+LDA @353
+CEQ @0
+JEQ %CMIL
+STA @510
+LDA @320
+CGT @9
+JGT %CMIL
+STA @5
+STA @293
+RET
+
+CONTADOR:
+UNI:
+LDA @352
+CEQ @0
+JEQ %UNI
+LDA @288
+SOMA $1
+STA @288
+CGT @9
+JGT %DEZ
+JMP %UNI
+
+DEZ:
+LDA @352
+CEQ @0
+JEQ %DEZ
+LDA @289
+SOMA $1
+STA @289
+CGT @9
+JGT %CEN
+JMP %DEZ
+
+CEN:
+LDA @352
+CEQ @0
+JEQ %CEN
+LDA @290
+SOMA $1
+STA @290
+CGT @9
+JGT %UMIL
+JMP %CEN
+
+UMIL:
+LDA @352
+CEQ @0
+JEQ %DEZ
+LDA @291
+SOMA $1
+STA @291
+CGT @9
+JGT %DMIL
+JMP %UMIL
+
+DMIL:
+LDA @352
+CEQ @0
+JEQ %DMIL
+LDA @289
+SOMA $1
+STA @289
+CGT @9
+JGT %CMIL
+JMP %DMIL
+
+CMIL:
+LDA @352
+CEQ @0
+JEQ %CMIL
+LDA @289
+SOMA $1
+STA @289
+CGT @9
+JGT %OUT
+JMP %CMIL
+
+OUT:
+RET
