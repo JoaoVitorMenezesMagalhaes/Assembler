@@ -16,14 +16,15 @@ STA @2 # Carrega 2 no endereço 0 da RAM
 STA @3 # Carrega 3 no endereço 0 da RAM
 STA @4 # Carrega 4 no endereço 0 da RAM
 STA @5 # Carrega 5 no endereço 0 da RAM
+STA @6 # Carrega 5 no endereço 0 da RAM
 LDI $9 # Carrega 9 no imediato
 STA @9 # Carrega a posição MEM[9] com o valor 9
 LDI $1 # Carrega 1 no imediato
-STA @6 # Carrega a posição MEM[6] com o valor 1
+STA @7 # Carrega a posição MEM[7] com o valor 1
 
 CHECKKEYS:
 LDA @353 
-CEQ @6
+CEQ @7
 JEQ %CHECKK0
 JSR %LIMITE
 CHECKK0:
@@ -44,7 +45,7 @@ STA @510
 LDA @320
 CGT @9
 JGT %UNI
-STA @0
+STA @1
 STA @288
 
 DEZ:
@@ -55,7 +56,7 @@ STA @510
 LDA @320
 CGT @9
 JGT %DEZ
-STA @1
+STA @2
 STA @289
 
 CEN:
@@ -66,7 +67,7 @@ STA @510
 LDA @320
 CGT @9
 JGT %CEN
-STA @2
+STA @3
 STA @290
 
 UMIL:
@@ -77,7 +78,7 @@ STA @510
 LDA @320
 CGT @9
 JGT %UMIL
-STA @3
+STA @4
 STA @291
 
 DMIL:
@@ -88,7 +89,7 @@ STA @510
 LDA @320
 CGT @9
 JGT %DMIL
-STA @4
+STA @5
 STA @292
 
 CMIL:
@@ -99,76 +100,76 @@ STA @510
 LDA @320
 CGT @9
 JGT %CMIL
-STA @5
+STA @6
 STA @293
 RET
 
 CONTADOR:
-UNI:
+CUNI:
 LDA @352
 CEQ @0
-JEQ %UNI
+JEQ %CUNI
 LDA @288
+CGT @1
+JGT %CDEZ
 SOMA $1
 STA @288
-CGT @9
-JGT %DEZ
-JMP %UNI
+JMP %CUNI
 
-DEZ:
+CDEZ:
 LDA @352
 CEQ @0
-JEQ %DEZ
+JEQ %CDEZ
 LDA @289
+CGT @2
+JGT %CCEN
 SOMA $1
 STA @289
-CGT @9
-JGT %CEN
-JMP %DEZ
+JMP %CDEZ
 
-CEN:
+CCEN:
 LDA @352
 CEQ @0
-JEQ %CEN
+JEQ %CCEN
 LDA @290
+CGT @3
+JGT %CUMIL
 SOMA $1
 STA @290
-CGT @9
-JGT %UMIL
-JMP %CEN
+JMP %CCEN
 
-UMIL:
+CUMIL:
 LDA @352
 CEQ @0
-JEQ %DEZ
+JEQ %CUMIL
 LDA @291
+CGT @4
+JGT %CDMIL
 SOMA $1
 STA @291
-CGT @9
-JGT %DMIL
-JMP %UMIL
+JMP %CUMIL
 
-DMIL:
+CDMIL:
 LDA @352
 CEQ @0
-JEQ %DMIL
-LDA @289
+JEQ %CDMIL
+LDA @292
+CGT @5
+JGT %CCMIL
 SOMA $1
-STA @289
-CGT @9
-JGT %CMIL
-JMP %DMIL
+STA @292
+JMP %CDMIL
 
-CMIL:
+CCMIL:
 LDA @352
 CEQ @0
-JEQ %CMIL
-LDA @289
-SOMA $1
-STA @289
-CGT @9
+JEQ %CCMIL
+LDA @293
+CGT @6
 JGT %OUT
-JMP %CMIL
+SOMA $1
+STA @293
+JMP %CCMIL
 
 OUT:
 RET
