@@ -31,6 +31,8 @@ LDI $10 # Carrega 10 no imediato
 STA @10 # Carrega a posição MEM[10] com o valor 10
 
 CHECKKEYS:
+LDA @0
+STA @258
 LDA @353 
 CEQ @0
 JEQ %CHECKK0
@@ -116,9 +118,10 @@ STA @6
 STA @293
 
 ZERA:
-LDA@353
+LDA @353
 CEQ @0
 JEQ %ZERA
+LDA @0
 STA @288
 STA @289
 STA @290
@@ -128,6 +131,8 @@ STA @293
 RET
 
 CONTADOR:
+LDA @0
+STA @257
 STA @511
 LDA @100
 SOMA @7
