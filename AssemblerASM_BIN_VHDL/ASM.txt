@@ -17,23 +17,35 @@ STA @3 # Carrega 0 no endereço 3 da RAM
 STA @4 # Carrega 0 no endereço 4 da RAM
 STA @5 # Carrega 0 no endereço 5 da RAM
 STA @6 # Carrega 0 no endereço 6 da RAM
+STA @100 # Carrega 0 no endereço 1 da RAM
+STA @101 # Carrega 0 no endereço 2 da RAM
+STA @102 # Carrega 0 no endereço 3 da RAM
+STA @103 # Carrega 0 no endereço 4 da RAM
+STA @104 # Carrega 0 no endereço 5 da RAM
+STA @105 # Carrega 0 no endereço 6 da RAM
 LDI $9 # Carrega 9 no imediato
 STA @9 # Carrega a posição MEM[9] com o valor 9
 LDI $1 # Carrega 1 no imediato
 STA @7 # Carrega a posição MEM[7] com o valor 1
+LDI $10 # Carrega 10 no imediato
+STA @10 # Carrega a posição MEM[10] com o valor 10
 
 CHECKKEYS:
 LDA @353 
 CEQ @0
 JEQ %CHECKK0
 JSR %LIMITE
+STA @511
 CHECKK0:
 LDA @352
 CEQ @0
 JEQ %CHECKKEYS
 JSR %CONTADOR
+STA @510
+JMP %CHECKKEYS
 
 LIMITE:
+STA @510
 LDA @7
 STA @258
 
@@ -102,19 +114,94 @@ CGT @9
 JGT %CMIL
 STA @6
 STA @293
+
+ZERA:
+LDA@353
+CEQ @0
+JEQ %ZERA
+STA @288
+STA @289
+STA @290
+STA @291
+STA @292
+STA @293
 RET
 
 CONTADOR:
-LDA @7
-STA @257
-CNT:
-LDA @352
-CEQ @0
-JEQ %CNT
 STA @511
-LDA @0
+LDA @100
 SOMA @7
-LDA @288
-JEQ %CNT
+STA @100
+STA @288
+CEQ @10
+JEQ %CDEZ
+JMP %EXITCONT
 
+CDEZ:
+LDA @0
+STA @288
+STA @100
+LDA @101
+SOMA @7
+STA 101
+STA @289
+CEQ @10
+JEQ %CCEN
+JMP %EXITCONT
+
+CCEN:
+LDA @0
+STA @288
+STA @100
+STA @289
+STA @101
+LDA @102
+SOMA @7
+STA @102
+STA @290
+CEQ @10
+JEQ %CUMIL
+JMP %EXITCONT
+
+CUMIL:
+LDA @0
+STA @288
+STA @289
+STA @290
+LDA @103
+SOMA @7
+STA @103
+STA @291
+CEQ @10
+JEQ %CDMIL
+JMP %EXITCONT 
+
+CDMIL:
+LDA @0 
+STA @288
+STA @289
+STA @290
+STA @291
+LDA @104
+SOMA @7
+STA @104
+STA @292
+CEQ @10
+JEQ %CCMIL
+JMP %EXITCONT
+
+CCMIL:
+LDA @0 
+STA @288
+STA @289
+STA @290
+STA @291
+STA @292
+LDA @105
+SOMA @7
+STA @105
+STA @293
+JMP %EXITCONT
+
+EXITCONT:
 RET
