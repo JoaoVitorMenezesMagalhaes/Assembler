@@ -11,19 +11,20 @@ STA @256 # Carrega 0 no LEDR0-7
 STA @257 # Carrega 0 no LEDR8
 STA @258 # Carrega 0 no LEDR9
 STA @0 # Carrega 0 no endereço 0 da RAM
-STA @1 # Carrega 1 no endereço 0 da RAM
-STA @2 # Carrega 2 no endereço 0 da RAM
-STA @3 # Carrega 3 no endereço 0 da RAM
-STA @4 # Carrega 4 no endereço 0 da RAM
-STA @5 # Carrega 5 no endereço 0 da RAM
+STA @1 # Carrega 0 no endereço 1 da RAM
+STA @2 # Carrega 0 no endereço 2 da RAM
+STA @3 # Carrega 0 no endereço 3 da RAM
+STA @4 # Carrega 0 no endereço 4 da RAM
+STA @5 # Carrega 0 no endereço 5 da RAM
+STA @6 # Carrega 0 no endereço 6 da RAM
 LDI $9 # Carrega 9 no imediato
 STA @9 # Carrega a posição MEM[9] com o valor 9
 LDI $1 # Carrega 1 no imediato
-STA @6 # Carrega a posição MEM[6] com o valor 1
+STA @7 # Carrega a posição MEM[7] com o valor 1
 
 CHECKKEYS:
 LDA @353 
-CEQ @0 #SE NÃO APERTOU PULA PARA 
+CEQ @0
 JEQ %CHECKK0
 JSR %LIMITE
 CHECKK0:
@@ -33,18 +34,18 @@ JEQ %CHECKKEYS
 JSR %CONTADOR
 
 LIMITE:
-LDA @6
+LDA @7
 STA @258
 
 UNI:
 LDA @353
-CEQ @0 #SE NÃO APERTOU RODA DE NOVO
+CEQ @0
 JEQ %UNI
 STA @510
 LDA @320
 CGT @9
 JGT %UNI
-STA @0
+STA @1
 STA @288
 
 DEZ:
@@ -55,7 +56,7 @@ STA @510
 LDA @320
 CGT @9
 JGT %DEZ
-STA @1
+STA @2
 STA @289
 
 CEN:
@@ -66,7 +67,7 @@ STA @510
 LDA @320
 CGT @9
 JGT %CEN
-STA @2
+STA @3
 STA @290
 
 UMIL:
@@ -77,7 +78,7 @@ STA @510
 LDA @320
 CGT @9
 JGT %UMIL
-STA @3
+STA @4
 STA @291
 
 DMIL:
@@ -88,7 +89,7 @@ STA @510
 LDA @320
 CGT @9
 JGT %DMIL
-STA @4
+STA @5
 STA @292
 
 CMIL:
@@ -99,12 +100,12 @@ STA @510
 LDA @320
 CGT @9
 JGT %CMIL
-STA @5
+STA @6
 STA @293
 RET
 
 CONTADOR:
-LDA @6
+LDA @7
 STA @257
 CNT:
 LDA @352
