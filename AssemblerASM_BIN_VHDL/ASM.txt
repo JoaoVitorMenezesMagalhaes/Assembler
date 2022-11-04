@@ -1,274 +1,285 @@
-STA @510 # Limpa key1
-STA @511 # Limpa key0
-LDI $0 # Carrega 0 no imediato
-STA @288 # Carrega 0 no hex0
-STA @289 # Carrega 0 no hex1
-STA @290 # Carrega 0 no hex2
-STA @291 # Carrega 0 no hex3
-STA @292 # Carrega 0 no hex4
-STA @293 # Carrega 0 no hex5
-STA @256 # Carrega 0 no LEDR0-7
-STA @257 # Carrega 0 no LEDR8
-STA @258 # Carrega 0 no LEDR9
-STA @0 # Carrega 0 no endereço 0 da RAM
-STA @11 # Carrega 0 no endereço 11 da RAM
-STA @12 # Carrega 0 no endereço 12 da RAM
-STA @13 # Carrega 0 no endereço 13 da RAM
-STA @14 # Carrega 0 no endereço 14 da RAM
-STA @15 # Carrega 0 no endereço 15 da RAM
-STA @16 # Carrega 0 no endereço 16 da RAM
-LDI $9 # Carrega 9 no imediato
-STA @1 # Carrega 0 no endereço 1 da RAM
-STA @2 # Carrega 0 no endereço 2 da RAM
-STA @3 # Carrega 0 no endereço 3 da RAM
-STA @4 # Carrega 0 no endereço 4 da RAM
-STA @5 # Carrega 0 no endereço 5 da RAM
-STA @6 # Carrega 0 no endereço 6 da RAM
-STA @9 # Carrega a posição MEM[9] com o valor 9
-LDI $1 # Carrega 1 no imediato
-STA @7 # Carrega a posição MEM[7] com o valor 1
-LDI $10 # Carrega 10 no imediato
-STA @10 # Carrega a posição MEM[10] com o valor 10
-LDI $15
-STA @17
+STA R0, @510 # Limpa key1
+STA R0, @511 # Limpa key0
+LDI R0, $0 # Carrega 0 no imediato
+STA R0, @288 # Carrega 0 no hex0
+STA R0, @289 # Carrega 0 no hex1
+STA R0, @290 # Carrega 0 no hex2
+STA R0, @291 # Carrega 0 no hex3
+STA R0, @292 # Carrega 0 no hex4
+STA R0, @293 # Carrega 0 no hex5
+STA R0, @256 # Carrega 0 no LEDR0-7
+STA R0, @257 # Carrega 0 no LEDR8
+STA R0, @258 # Carrega 0 no LEDR9
+STA R0, @0 # Carrega 0 no endereço 0 da RAM
+STA R0, @11 # Carrega 0 no endereço 11 da RAM
+STA R0, @12 # Carrega 0 no endereço 12 da RAM
+STA R0, @13 # Carrega 0 no endereço 13 da RAM
+STA R0, @14 # Carrega 0 no endereço 14 da RAM
+STA R0, @15 # Carrega 0 no endereço 15 da RAM
+STA R0, @16 # Carrega 0 no endereço 16 da RAM
+LDI R0, $9 # Carrega 9 no imediato
+STA R0, @1 # Carrega 0 no endereço 1 da RAM
+STA R0, @2 # Carrega 0 no endereço 2 da RAM
+STA R0, @3 # Carrega 0 no endereço 3 da RAM
+STA R0, @4 # Carrega 0 no endereço 4 da RAM
+STA R0, @5 # Carrega 0 no endereço 5 da RAM
+STA R0, @6 # Carrega 0 no endereço 6 da RAM
+STA R0, @9 # Carrega a posição MEM[9] com o valor 9
+LDI R0, $1 # Carrega 1 no imediato
+STA R0, @7 # Carrega a posição MEM[7] com o valor 1
+LDI R0, $10 # Carrega 10 no imediato
+STA R0, @10 # Carrega a posição MEM[10] com o valor 10
+LDI R0, $15
+STA R0, @17
+LDI R0, $6 #Carrega 6 no imediato
+STA R0, @18 #Carrega 
+
 
 CHECKKEYS:
-LDA @0
-STA @258
-LDA @353 
-CEQ @0
+LDA R0, @0
+STA R0, @258
+LDA R0, @353
+CEQ R0, @0
 JEQ %CHECKK0
 JSR %LIMITE
 CHECKK0:
-LDA @352
-CEQ @0
+LDA R0, @352
+CEQ R0, @0
 JEQ %CHECKKEYS
 JSR %CHECALIMITE
 JSR %CONTADOR
 JMP %CHECKKEYS
 
+
 LIMITE:
-STA @510
-LDA @7
-STA @258
-LDA @0
-STA @288
-STA @289
-STA @290
-STA @291
-STA @292
-STA @293
-STA @11
-STA @12
-STA @13
-STA @14
-STA @15
-STA @16
+STA R0, @510
+LDA R0, @7
+STA R0, @258
+LDA R0, @0
+STA R0, @288
+STA R0, @289
+STA R0, @290
+STA R0, @291
+STA R0, @292
+STA R0, @293
+STA R0, @11
+STA R0, @12
+STA R0, @13
+STA R0, @14
+STA R0, @15
+STA R0, @16
+
 
 UNI:
-LDA @353
-CEQ @0
+LDA R0, @353
+CEQ R0, @0
 JEQ %UNI
-STA @510
-LDA @320
-CGT @9
+STA R0, @510
+LDA R0, @320
+CGT R0, @9
 JGT %UNI
-STA @288
-STA @1
+STA R0,@288
+STA R0, @1
 
 
 DEZ:
-LDA @353
-CEQ @0
+LDA R0, @353
+CEQ R0, @0
 JEQ %DEZ
-STA @510
-LDA @320
-CGT @9
+STA R0, @510
+LDA R0, @320
+CGT R0, @9
 JGT %DEZ
-STA @289
-STA @2
+STA R0, @289
+STA R0, @2
+
 
 CEN:
-LDA @353
-CEQ @0
+LDA R0, @353
+CEQ R0, @0
 JEQ %CEN
-STA @510
-LDA @320
-CGT @9
+STA R0, @510
+LDA R0, @320
+CGT R0, @9
 JGT %CEN
-STA @3
-STA @290
+STA R0, @3
+STA R0, @290
+
 
 UMIL:
-LDA @353
-CEQ @0
+LDA R0, @353
+CEQ R0, @0
 JEQ %UMIL
-STA @510
-LDA @320
-CGT @9
+STA R0, @510
+LDA R0, @320
+CGT R0, @9
 JGT %UMIL
-STA @4
-STA @291
+STA R0, @4
+STA R0, @291
+
 
 DMIL:
-LDA @353
-CEQ @0
+LDA R0, @353
+CEQ R0, @0
 JEQ %DMIL
-STA @510
-LDA @320
-CGT @9
+STA R0, @510
+LDA R0, @320
+CGT R0, @9
 JGT %DMIL
-STA @5
-STA @292
+STA R0, @5
+STA R0, @292
+
 
 CMIL:
-LDA @353
-CEQ @0
+LDA R0, @353
+CEQ R0, @0
 JEQ %CMIL
-STA @510
-LDA @320
-CGT @9
+STA R0, @510
+LDA R0, @320
+CGT R0, @9
 JGT %CMIL
-STA @6
-STA @293
+STA R0, @6
+STA R0, @293
+
 
 ZERA:
-LDA @353
-CEQ @0
+LDA R0, @353
+CEQ R0, @0
 JEQ %ZERA
-STA @510
-LDA @0
-STA @288
-STA @289
-STA @290
-STA @291
-STA @292
-STA @293
+STA R0, @510
+LDA R0, @0
+STA R0, @288
+STA R0, @289
+STA R0, @290
+STA R0, @291
+STA R0, @292
+STA R0, @293
 RET
 
+
 CHECALIMITE:
-STA @511
-LDA @11
-CEQ @1
+STA R0, @511
+LDA R0, @11
+CEQ R0, @1
 JEQ %VDEZ
 RET
 VDEZ:
-LDA @12
-CEQ @2
+LDA R0, @12
+CEQ R0, @2
 JEQ %VCEN
 RET
 VCEN:
-LDA @13
-CEQ @3
+LDA R0, @13
+CEQ R0, @3
 JEQ %VUMIL
 RET
 VUMIL:
-LDA @14
-CEQ @4
+LDA R0, @14
+CEQ R0, @4
 JEQ %VDMIL
 RET
 VDMIL:
-LDA @15
-CEQ @5
+LDA R0, @15
+CEQ R0, @5
 JEQ %VCMIL
 VCMIL:
-LDA @16
-CEQ @6
+LDA R0, @16
+CEQ R0, @6
 JEQ %ERRO
 RET
 
 
 CONTADOR:
-LDA @7
-STA @257
-STA @511
-LDA @11
-SOMA @7
-STA @11
-CEQ @10
-JEQ %CDEZ
-STA @288
+LDA R0, @7
+STA R0, @257
+STA R0, @511
+LDA R0, @11
+ADDI R0, $1
+STA R0, @11
+CEQ R0, @10
+JEQ R0, %CDEZ
+STA R0, @288
 JMP %EXITCONT
 
 
 CDEZ:
-LDA @0
-STA @288
-STA @11
-LDA @12
-SOMA @7
-STA @12
-CEQ @10
+LDA R0, @0
+STA R0, @288
+STA R0, @11
+LDA R0, @12
+ADDI R0, $1
+STA R0, @12
+CEQ R0, @10
 JEQ %CCEN
-STA @289
+STA R0, @289
 JMP %EXITCONT1
 
 CCEN:
-LDA @0
-STA @288
-STA @11
-STA @289
-STA @12
-LDA @13
-SOMA @7
-STA @13
-CEQ @10
+LDA R0, @0
+STA R0, @288
+STA R0, @11
+STA R0, @289
+STA R0, @12
+LDA R0, @13
+ADDI R0, $1
+STA R0, @13
+CEQ R0, @10
 JEQ %CUMIL
-STA @290
+STA R0, @290
 JMP %EXITCONT2
 
 CUMIL:
-LDA @0
-STA @288
-STA @11
-STA @289
-STA @12
-STA @290
-STA @13
-LDA @14
-SOMA @7
-STA @14
-CEQ @10
+LDA R0, @0
+STA R0, @288
+STA R0, @11
+STA R0, @289
+STA R0, @12
+STA R0, @290
+STA R0, @13
+LDA R0, @14
+ADDI R0, $1
+STA R0, @14
+CEQ R0, @10
 JEQ %CDMIL
-STA @291
+STA R0, @291
 JMP %EXITCONT3
 
 CDMIL:
-LDA @0 
-STA @288
-STA @11
-STA @289
-STA @12
-STA @290
-STA @13
-STA @291
-STA @14
-LDA @15
-SOMA @7
-STA @15
-CEQ @10
+LDA R0, @0
+STA R0, @288
+STA R0, @11
+STA R0, @289
+STA R0, @12
+STA R0, @290
+STA R0, @13
+STA R0, @291
+STA R0, @14
+LDA R0, @15
+ADDI R0, $1
+STA R0, @15
+CEQ R0, @10
 JEQ %CCMIL
-STA @292
+STA R0, @292
 JMP %EXITCONT4
 
 CCMIL:
-LDA @0 
-STA @288
-STA @11
-STA @289
-STA @12
-STA @290
-STA @13
-STA @291
-STA @13
-STA @292
-STA @15
-LDA @16
-SOMA @7
-STA @16
-CEQ @10 
-JMP %ERRO
-STA @293
+LDA R0, @0
+STA R0, @288
+STA R0, @11
+STA R0, @289
+STA R0, @12
+STA R0, @290
+STA R0, @13
+STA R0, @291
+STA R0, @13
+STA R0, @292
+STA R0, @15
+LDA R0, @16
+ADDI R0, $1
+STA R0, @16
+CEQ R0, @10
+JEQ %ERRO
+STA R0, @293
 
 EXITCONT:
 EXITCONT1:
@@ -280,50 +291,50 @@ RET
 
 ERRO:
 ERRO1:
-LDI $511
-STA @256
-LDA $17
-STA @288
-STA @289
-STA @290
-STA @291
-STA @292
-STA @293
-LDA @7
-STA @257
-STA @258
-STA @511
-STA @510
+LDI R0, $511
+STA R0, @256
+LDA R0, $17
+STA R0, @288
+STA R0, @289
+STA R0, @290
+STA R0, @291
+STA R0, @292
+STA R0, @293
+LDA R0, @7
+STA R0, @257
+STA R0, @258
+STA R0, @511
+STA R0, @510
 REINICIA:
-LDA @352
-CEQ @0
+LDA R0, @352
+CEQ R0, @0
 JEQ %REINICIA
-LDA @0 
-STA @257
-STA @256 
-STA @258
-STA @11
-STA @288
-STA @12
-STA @289
-STA @13
-STA @290
-STA @14
-STA @291
-STA @15
-STA @292
-STA @16
-STA @293
-LDA @9
-STA @1
-STA @2
-STA @3
-STA @4
-STA @5
-STA @6
-STA @511
+LDA R0, @0
+STA R0, @257
+STA R0, @256
+STA R0, @258
+STA R0, @11
+STA R0, @288
+STA R0, @12
+STA R0, @289
+STA R0, @13
+STA R0, @290
+STA R0, @14
+STA R0, @291
+STA R0, @15
+STA R0, @292
+STA R0, @16
+STA R0, @293
+LDA R0, @9
+STA R0, @1
+STA R0, @2
+STA R0, @3
+STA R0, @4
+STA R0, @5
+STA R0, @6
+STA R0, @511
 VOLTACONTADOR:
-LDA @352
-CEQ @0
+LDA R0, @352
+CEQ R0, @0
 JEQ %VOLTACONTADOR
 RET

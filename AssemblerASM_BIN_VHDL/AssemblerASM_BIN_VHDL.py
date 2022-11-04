@@ -11,6 +11,12 @@ def  converteArroba(line):
   line = ''.join(line)
   return line
  
+def converteReg(line):
+  line = defineInstrucao(line)
+  line = line.split(',')[0]
+  line = line.split (' ')[1]
+  line = ''.join(line)
+  return line
 
 def  converteCifrao(line):
   line = defineInstrucao(line)
@@ -89,25 +95,25 @@ with open(destinoBIN, "w") as f:  #Abre o destino BIN
       
     if not ':' in line:
       if '@' in line:
-        l = 'tmp(' + str(cont) + ') := ' + trataMnemonico(line) + ' & \"' + converteArroba(line) + '\"; -- ' + identificaComentario(line) + '\n'
+        l = 'tmp(' + str(cont) + ') := ' + trataMnemonico(line) + ' & ' + converteReg(line) + ' & \"' + converteArroba(line) + '\"; -- ' + identificaComentario(line) + '\n'
         cont+=1
 
       elif '$' in line:
-        l = 'tmp(' + str(cont) + ') := ' + trataMnemonico(line) + ' & \"' + converteCifrao(line) + '\"; -- ' + identificaComentario(line) + '\n'
+        l = 'tmp(' + str(cont) + ') := ' + trataMnemonico(line) + ' & ' + converteReg(line) + ' & \"' + converteCifrao(line) + '\"; -- ' + identificaComentario(line) + '\n'
         cont+=1
 
       elif line.replace("\n", "") == "NOP":
-        l = 'tmp(' + str(cont) + ') := ' + line.replace("\n", "") + ' & \"' + bin(0)[2:].zfill(9) + '\"; -- ' + line.replace("\n", "") + '\n'
+        l = 'tmp(' + str(cont) + ') := ' + line.replace("\n", "") + ' & \"' + bin(0)[2:].zfill(12) + '\"; -- ' + line.replace("\n", "") + '\n'
         cont+=1
 
       elif line.replace("\n", "") == "RET":
-        l = 'tmp(' + str(cont) + ') := ' + line.replace("\n", "") + ' & \"' + bin(0)[2:].zfill(9) + '\"; -- ' + line.replace("\n", "") + '\n'
+        l = 'tmp(' + str(cont) + ') := ' + line.replace("\n", "") + ' & \"' + bin(0)[2:].zfill(12) + '\"; -- ' + line.replace("\n", "") + '\n'
         cont+=1
 
       elif '%' in line:
         label = converteLabel(line)
         tmp = int(labels[label])
-        l = 'tmp(' + str(cont) + ') := ' + trataMnemonico(line) + ' & \"' + bin(tmp)[2:].zfill(9) + '\"; -- ' + line.replace("\n", "")+ ' ' + str(tmp) + '\n'
+        l = 'tmp(' + str(cont) + ') := ' + trataMnemonico(line) + ' & \"' + bin(tmp)[2:].zfill(12) + '\"; -- ' + line.replace("\n", "")+ ' ' + str(tmp) + '\n'
         cont+=1
 
       else:
