@@ -286,8 +286,6 @@ LDA R6, @16
 ADDI R6, $1
 STA R6, @16
 STA R6, @293
-CEQ R6, @2
-JEQ %CDMIL
 
 
 
