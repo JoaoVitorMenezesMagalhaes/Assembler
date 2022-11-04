@@ -1,6 +1,7 @@
 STA R0, @510 # Limpa key1
 STA R0, @511 # Limpa key0
 LDI R0, $0 # Carrega 0 no imediato
+LDI R6, $0 # Carrega 0 no imediato
 STA R0, @288 # Carrega 0 no hex0
 STA R0, @289 # Carrega 0 no hex1
 STA R0, @290 # Carrega 0 no hex2
@@ -23,7 +24,6 @@ STA R0, @2 # Carrega 0 no endereço 2 da RAM
 STA R0, @3 # Carrega 0 no endereço 3 da RAM
 STA R0, @4 # Carrega 0 no endereço 4 da RAM
 STA R0, @5 # Carrega 0 no endereço 5 da RAM
-STA R0, @6 # Carrega 0 no endereço 6 da RAM
 STA R0, @9 # Carrega a posição MEM[9] com o valor 9
 LDI R0, $1 # Carrega 1 no imediato
 STA R0, @7 # Carrega a posição MEM[7] com o valor 1
@@ -32,7 +32,11 @@ STA R0, @10 # Carrega a posição MEM[10] com o valor 10
 LDI R0, $15
 STA R0, @17
 LDI R0, $6 #Carrega 6 no imediato
-STA R0, @18 #Carrega 
+STA R0, @6 # Carrega 6 no endereço 6 da RAM
+LDI R0, $2 #Carrega 2 no imediato
+STA R0, @2 # Carrega 2 no endereço 2 da RAM
+LDI R0, $4 #Carrega 4 no imediato
+STA R0, @4 # Carrega 4 no endereço 2 da RAM
 
 
 CHECKKEYS:
@@ -209,7 +213,7 @@ STA R0, @11
 LDA R2, @12
 ADDI R2, $1
 STA R2, @12
-CEQ R2, @10
+CEQ R2, @6
 JEQ %CCEN
 STA R2, @289
 JMP %EXITCONT1
@@ -239,7 +243,7 @@ STA R0, @13
 LDA R4, @14
 ADDI R4, $1
 STA R4, @14
-CEQ R4, @10
+CEQ R4, @6
 JEQ %CDMIL
 STA R4, @291
 JMP %EXITCONT3
@@ -254,6 +258,9 @@ STA R0, @290
 STA R0, @13
 STA R0, @291
 STA R0, @14
+STA R6, @16
+CEQ R6, @2
+JEQ %VINTEQUATRO
 LDA R5, @15
 ADDI R5, $1
 STA R5, @15
@@ -264,6 +271,7 @@ JMP %EXITCONT4
 
 CCMIL:
 LDI R0, $0
+LDI R5, $0
 STA R0, @288
 STA R0, @11
 STA R0, @289
@@ -277,9 +285,11 @@ STA R0, @15
 LDA R6, @16
 ADDI R6, $1
 STA R6, @16
-CEQ R6, @10
-JEQ %ERRO
 STA R6, @293
+CEQ R6, @2
+JEQ %CDMIL
+
+
 
 EXITCONT:
 EXITCONT1:
@@ -309,7 +319,13 @@ REINICIA:
 LDA R0, @352
 CEQ R0, @0
 JEQ %REINICIA
-LDA R0, @0
+LDI R0, @0
+LDA R1, @0
+LDA R2, @0
+LDA R3, @0
+LDA R4, @0
+LDA R5, @0
+LDA R6, @0
 STA R0, @257
 STA R0, @256
 STA R0, @258
@@ -325,16 +341,18 @@ STA R0, @15
 STA R0, @292
 STA R0, @16
 STA R0, @293
-LDA R0, @9
-STA R0, @1
-STA R0, @2
-STA R0, @3
-STA R0, @4
-STA R0, @5
-STA R0, @6
 STA R0, @511
 VOLTACONTADOR:
 LDA R0, @352
 CEQ R0, @0
 JEQ %VOLTACONTADOR
 RET
+
+VINTEQUATRO:
+LDA R5, @15
+ADDI R5, $1
+STA R5, @15
+CEQ R5, @4
+JEQ %ERRO
+STA R5, @292
+JMP %EXITCONT4
